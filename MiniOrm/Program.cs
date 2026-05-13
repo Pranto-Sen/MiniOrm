@@ -17,28 +17,29 @@ class Program
         using var db = new AppDbContext(connStr);
 
 
-        //// Insert
-        //var product = new Product
+        // Insert
+        var product = new Product
+        {
+            Name = "Gaming Mouse",
+            Price = 49.99m,
+            Discount = null,
+            InStock = true
+        };
+        int id = db.Products.Insert(product);
+        Console.WriteLine($"Inserted Product - ID: {id}, Discount: {product.Discount?.ToString() ?? "NULL"}");
+
+
+        //// Find
+        //var found = db.Products.FindById(1);
+        //if(found != null)
         //{
-        //    Name = "Gaming Mouse",
-        //    Price = 49.99m,
-        //    Discount = 5.5m,
-        //    InStock = true
-        //};
+        //    Console.WriteLine($"Found Product: {found?.Name}, Price: {found?.Price}, Discount: {found?.Discount?.ToString() ?? "NULL"}");
+        //}
+        //else
+        //{
+        //    Console.WriteLine("No Product Found");
+        //}
 
-        //int id = db.Products.Insert(product);
-        //Console.WriteLine($"Inserted Product - ID: {id}, Discount: {product.Discount?.ToString() ?? "NULL"}");
-
-        // Find
-        var found = db.Products.FindById(7);
-        if(found != null)
-        {
-            Console.WriteLine($"Found Product: {found?.Name}, Price: {found?.Price}, Discount: {found?.Discount?.ToString() ?? "NULL"}");
-        }
-        else
-        {
-            Console.WriteLine("No Product Found");
-        }
 
         //// Update
         //if (found != null)
@@ -49,11 +50,10 @@ class Program
         //    Console.WriteLine($"Product Updated : Price: {found?.Price}, Discount: {found?.Discount?.ToString() ?? "NULL"}");
         //}
 
+
         // Get All
         var all = db.Products.GetAll();
-
         Console.WriteLine($"Total Products: {all.Count}");
-
         foreach (var p in all)
         {
             Console.WriteLine(
@@ -61,20 +61,20 @@ class Program
             );
         }
 
-        // Delete
-        int id = 1;
-        var exist = db.Products.FindById(id);
-        if (exist != null)
-        {
-            db.Products.Delete(id);
-            var remaining = db.Products.GetAll().Count;
-            Console.WriteLine($"Deleted Id = {id}, {remaining} products remaining");
-        }
-        else
-        {
-            Console.WriteLine("No Product Found");
-        }
-      
 
+        //// Delete
+        //int id = 1;
+        //var exist = db.Products.FindById(id);
+        //if (exist != null)
+        //{
+        //    db.Products.Delete(id);
+        //    var remaining = db.Products.GetAll().Count;
+        //    Console.WriteLine($"Deleted Id = {id}, {remaining} products remaining");
+        //}
+        //else
+        //{
+        //    Console.WriteLine("No Product Found");
+        //}
+      
     }
 }
